@@ -12,7 +12,7 @@
 
     <header>
         <h1>Наш класс: 6 "А"</h1>
-        <a class="open-modal-btn" id="openModal" href="register.html">Регистрация</a>
+        <a class="open-modal-btn" href="register.html">Регистрация</a>
     </header>
 
     <div class="container">
@@ -50,33 +50,102 @@
             <section>
                 <h2>📸 Фотогалерея</h2>
                 <div class="photo-grid">
-                    <img class="photo-box" src="img/изображение_viber_2026-02-14_15-45-11-715.jpg">
-                    <img class="photo-box" src="img/изображение_viber_2026-02-14_15-45-26-818.jpg">
-                    <img class="photo-box" src="img/изображение_viber_2026-02-14_15-45-46-190.jpg">
-                    <img class="photo-box" src="img/изображение_viber_2026-02-14_15-46-18-033.jpg">
+                    <img class="photo-box" src="img/изображение_viber_2026-02-14_15-45-11-715.jpg" alt="Фото 1">
+                    <img class="photo-box" src="img/изображение_viber_2026-02-14_15-45-26-818.jpg" alt="Фото 2">
+                    <img class="photo-box" src="img/изображение_viber_2026-02-14_15-45-46-190.jpg" alt="Фото 3">
+                    <img class="photo-box" src="img/изображение_viber_2026-02-14_15-46-18-033.jpg" alt="Фото 4">
                 </div>
+            </section>
+
+            <section class="vacation-card">
+                <h2>🎉 До каникул осталось:</h2>
+                <div id="timer">Загрузка...</div>
             </section>
         </main>
 
         <aside>
             <section>
-                <h2>📢 Объявления</h2>
-                <p>Не забываем сменку!</p>
-            </section>
-            <section>
-                <h2>🎂 Именинники</h2>
-                <p>🍰 <b>15.02</b> — Петя К.</p>
+                <h2>🎂 Дни рождения</h2>
+
+                <div class="seasons-list">
+                    <div class="season-block">
+                        <h3 style="color: #4a90e2;">❄️ Зима</h3>
+                        <p>🎮 <b>07.02</b> — Максим П.</p>
+                        <p>🍰 <b>10.02</b> — Милана И.</p>
+                        <p>🥳 <b>21.02</b> — Алиса П.</p>
+                    </div>
+
+                    <div class="season-block">
+                        <h3 style="color: #2ecc71;">🌱 Весна</h3>
+                        <p>🎸 <b>05.03</b> — Яна Р.</p>
+                        <p>🎮 <b>10.03</b> — Максим М.</p>
+                        <p>🍰 <b>20.03</b> — Ариана М.</p>
+                        <p>🥳 <b>21.03</b> — София Р.</p>
+                        <p>🎸 <b>20.04</b> — Пётр С.</p>
+                        <p>🍰 <b>15.05</b> — Василиса К.</p>
+                        <p>🎮 <b>17.05</b> — Тимофей Л.</p>
+                        <p>🧪 <b>23.05</b> — Никита К.</p>
+                    </div>
+
+                    <div class="season-block">
+                        <h3 style="color: #f1c40f;">☀️ Лето</h3>
+                        <p>🍰 <b>09.06</b> — Ксения Л.</p>
+                        <p>🥳 <b>19.06</b> — Злата Х.</p>
+                        <p>🎮 <b>20.06</b> — Григорий Г.</p>
+                        <p>🍰 <b>08.07</b> — Евгения М.</p>
+                        <p>🎸 <b>23.07</b> — Артём Б.</p>
+                        <p>⚽ <b>30.07</b> — Ярослав Д.</p>
+                        <p>🎨 <b>08.08</b> — Глеб П.</p>
+                        <p>🍰 <b>20.08</b> — Надежда П.</p>
+                        <p>🎮 <b>27.08</b> — Матвей Х.</p>
+                        <p>🎨 <b>25.08</b> — Полина С.</p>
+                    </div>
+
+                    <div class="season-block">
+                        <h3 style="color: #e67e22;">🍂 Осень</h3>
+                        <p>🍰 <b>03.09</b> — Анна Л.</p>
+                        <p>🥳 <b>04.09</b> — Нелли К.</p>
+                        <p>🍰 <b>25.09</b> — Ефим В.</p>
+                        <p>🎸 <b>29.09</b> — Давид П.</p>
+                        <p>🎸 <b>02.10</b> — Ирина Г.</p>
+                        <p>🍰 <b>08.10</b> — Диана Г.</p>
+                        <p>🥳 <b>19.11</b> — Андрей К.</p>
+                    </div>
+                </div>
             </section>
         </aside>
     </div>
 
     <footer>
-        <center>&copy; 2026 Сайт нашего класса</center>
+        &copy; 2026 Сайт нашего класса
     </footer>
 
     <script>
-    </script>
+        // Дата весенних каникул: 23 марта 2026 года
+        const vacationDate = new Date(2026, 2, 23, 0, 0, 0).getTime();
 
+        const timerUpdate = setInterval(function () {
+            const now = new Date().getTime();
+            const distance = vacationDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            const timerElement = document.getElementById("timer");
+
+            if (distance < 0) {
+                clearInterval(timerUpdate);
+                timerElement.innerHTML = "УРА! КАНИКУЛЫ! 🥳";
+            } else {
+                const h = hours < 10 ? "0" + hours : hours;
+                const m = minutes < 10 ? "0" + minutes : minutes;
+                const s = seconds < 10 ? "0" + seconds : seconds;
+                timerElement.innerHTML = `${days}д ${h}:${m}:${s}`;
+            }
+        }, 1000);
+    </script>
 </body>
 
 </html>
