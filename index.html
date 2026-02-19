@@ -18,6 +18,11 @@
     <div class="container">
         <main>
             <section>
+                <h2 id="schedule-title">📅 Расписание</h2>
+                <div id="schedule-container"></div>
+            </section>
+            </table>
+            <!--<section>
                 <h2>📅 Расписание</h2>
                 <table class="schedule-table">
                     <tr>
@@ -45,7 +50,7 @@
                         <td>325</td>
                     </tr>
                 </table>
-            </section>
+            </section>-->
 
             <section>
                 <h2>📸 Фотогалерея</h2>
@@ -121,24 +126,59 @@
     </footer>
 
     <script>
-        // Дата весенних каникул: 23 марта 2026 года
-        const vacationDate = new Date(2026, 2, 23, 0, 0, 0).getTime();
+        // --- 1. ДАННЫЕ РАСПИСАНИЯ ---
+        const scheduleData = {
+            1: { name: "Понедельник", lessons: [["1. Иностранный язык", "236 321 338"], ["2. География", "333"], ["3. Белорусский язык", "325"], ["4. ФК и З", "Зал"], ["5. Математика", "324"], ["6. Белорусская литература", "325"]] },
+            2: { name: "Вторник", lessons: [["1. Трудовое обучение", "107А"], ["2. Трудовое обучение", "107А"], ["3. Математика", "324"], ["4. Русский язык", "334"], ["5. Русская литература", "334"], ["6. Белорусский язык", "325"]] },
+            3: { name: "Среда", lessons: [["1. Русский язык", "334"], ["2. Белорусский язык", "325"], ["3. Белорусская литература", "325"], ["4. История Беларуси", "323"], ["5. Математика", "324"], ["6. Биология", "215"]] },
+            4: { name: "Четверг", lessons: [["1. Русская литература", "334"], ["2. Информатика или Иностранный язык", "Много кабинетов"], ["3. Информатика или Иностранный язык", "Много кабинетов"], ["4. Математика", "324"], ["5. ФК и З", "Бассейн"], ["6. Классный час", "321"]] },
+            5: { name: "Пятница", lessons: [["1. Иностранный язык", "236 321 338"], ["2. Русский язык", "334"], ["3. Математика", "324"], ["4. Искусство", "КЗ"], ["5. Всемирная Историй", "323"], ["6. ФК и З", "Зал"]] },
+            6: { name: "Суббота", lessons: [["Мероприятия", "Школа"]] },
+            0: { name: "Воскресенье", lessons: [["Выходной", "🏠"]] }
+        };
 
-        const timerUpdate = setInterval(function () {
+        function updateSchedule() {
+            const now = new Date();
+            let day = now.getDay(); // 0 - ВС, 1 - ПН...
+            const hour = now.getHours();
+
+            // Логика: если сейчас после 16:00, показываем расписание на завтра
+            let titlePrefix = "Расписание на сегодня";
+            if (hour >= 16) {
+                day = (day + 1) % 7;
+                titlePrefix = "Расписание на завтра";
+            }
+
+            const currentDay = scheduleData[day];
+            document.getElementById("schedule-title").innerText = `📅 ${titlePrefix} (${currentDay.name})`;
+
+            let tableHTML = '<table class="schedule-table">';
+            currentDay.lessons.forEach(lesson => {
+                tableHTML += `<tr><td>${lesson[0]}</td><td>${lesson[1]}</td></tr>`;
+            });
+            tableHTML += '</table>';
+
+            document.getElementById("schedule-container").innerHTML = tableHTML;
+        }
+
+        // Запуск функции расписания
+        updateSchedule();
+
+        // --- 2. ТАЙМЕР КАНИКУЛ (Твой код) ---
+        const vacationDate = new Date(2026, 2, 23, 0, 0, 0).getTime();
+        setInterval(function () {
             const now = new Date().getTime();
             const distance = vacationDate - now;
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
             const timerElement = document.getElementById("timer");
 
             if (distance < 0) {
-                clearInterval(timerUpdate);
                 timerElement.innerHTML = "УРА! КАНИКУЛЫ! 🥳";
             } else {
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
                 const h = hours < 10 ? "0" + hours : hours;
                 const m = minutes < 10 ? "0" + minutes : minutes;
                 const s = seconds < 10 ? "0" + seconds : seconds;
