@@ -180,6 +180,59 @@ footer {
     text-align: center;
 }
 
+/* --- СТИЛИ ДЛЯ LIGHTBOX --- */
+.lightbox {
+    display: none;
+    /* Скрыто по умолчанию */
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    /* Черный фон с прозрачностью */
+    justify-content: center;
+    align-items: center;
+}
+
+.lightbox-content {
+    max-width: 90%;
+    max-height: 80%;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
+}
+
+.lightbox.active {
+    display: flex;
+}
+
+.lightbox.active .lightbox-content {
+    transform: scale(1);
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: white;
+    font-size: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.close-btn:hover {
+    color: var(--accent-color);
+}
+
+/* Курсор-увеличитель для превью */
+.photo-box {
+    cursor: zoom-in;
+}
+
 /* --- АДАПТИВНОСТЬ ДЛЯ ТЕЛЕФОНОВ --- */
 @media (max-width: 768px) {
     .container {
@@ -188,6 +241,7 @@ footer {
 
     header {
         padding: 60px 20px 30px;
+        text-align: center;
     }
 
     .open-modal-btn {
