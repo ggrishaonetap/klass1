@@ -21,7 +21,6 @@
                 <h2 id="schedule-title">📅 Расписание</h2>
                 <div id="schedule-container"></div>
             </section>
-            </table>
             <!--<section>
                 <h2>📅 Расписание</h2>
                 <table class="schedule-table">
@@ -61,6 +60,10 @@
                     <img class="photo-box" src="img/изображение_viber_2026-02-14_15-46-18-033.jpg" alt="Фото 4">
                 </div>
             </section>
+            <div id="lightbox" class="lightbox">
+                <span class="close-btn">&times;</span>
+                <img class="lightbox-content" id="lightbox-img">
+            </div>
 
             <section class="vacation-card">
                 <h2>🎉 До каникул осталось:</h2>
@@ -142,9 +145,9 @@
             let day = now.getDay(); // 0 - ВС, 1 - ПН...
             const hour = now.getHours();
 
-            // Логика: если сейчас после 16:00, показываем расписание на завтра
+            // Логика: если сейчас после 15:00, показываем расписание на завтра
             let titlePrefix = "Расписание на сегодня";
-            if (hour >= 16) {
+            if (hour >= 15) {
                 day = (day + 1) % 7;
                 titlePrefix = "Расписание на завтра";
             }
@@ -185,6 +188,33 @@
                 timerElement.innerHTML = `${days}д ${h}:${m}:${s}`;
             }
         }, 1000);
+        // --- 3. ЛОГИКА ГАЛЕРЕИ (LIGHTBOX) ---
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const closeBtn = document.querySelector('.close-btn');
+
+        // Находим все картинки в галерее
+        document.querySelectorAll('.photo-box').forEach(image => {
+            image.addEventListener('click', () => {
+                lightbox.classList.add('active'); // Показываем окно
+                lightboxImg.src = image.src;      // Копируем путь к картинке
+                document.body.style.overflow = 'hidden'; // Запрещаем прокрутку сайта
+            });
+        });
+
+        // Закрытие при клике на крестик
+        closeBtn.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto'; // Возвращаем прокрутку
+        });
+
+        // Закрытие при клике на темный фон
+        lightbox.addEventListener('click', (e) => {
+            if (e.target !== lightboxImg) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
     </script>
 </body>
 
